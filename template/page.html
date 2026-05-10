@@ -247,7 +247,7 @@
 
           function renderMenu(items, container) {
             items.forEach(function(item) {
-              if (item.items && item.items.length > 0) {
+              if (item.children && item.children.length > 0) {
                 var section = document.createElement('div');
                 section.className = 'menu-section';
 
@@ -263,13 +263,13 @@
                   section.classList.toggle('collapsed');
                 });
 
-                renderMenu(item.items, sectionItems);
+                renderMenu(item.children, sectionItems);
                 section.appendChild(header);
                 section.appendChild(sectionItems);
                 container.appendChild(section);
               } else {
                 var link = document.createElement('a');
-                link.href = item.url || '#';
+                link.href = item.path || '#';
                 link.className = 'menu-item' + (item.active ? ' active' : '');
                 link.textContent = item.title;
                 if (item.target) link.target = item.target;
@@ -278,18 +278,7 @@
             });
           }
 
-          // Clear existing content except script
-          var script = menuContainer.querySelector('script');
-          menuContainer.innerHTML = '';
-          if (script) {
-            menuContainer.appendChild(script);
-            // Re-append script to execute it
-            var newScript = document.createElement('script');
-            newScript.textContent = script.textContent;
-            menuContainer.appendChild(newScript);
-          }
-
-          renderMenu(menuData, menuContainer);
+          renderMenu(menuData.items || [], menuContainer);
         })();
       </script>
     </nav>
