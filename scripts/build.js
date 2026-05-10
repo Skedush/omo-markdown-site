@@ -92,20 +92,13 @@ function generateMenu(files) {
   return { items };
 }
 
-function rewritePaths(html) {
-  return html
-    .replace(/href="(\/[^"]+)"/g, 'href="' + BASE_PATH + '$1"')
-    .replace(/src="(\/[^"]+)"/g, 'src="' + BASE_PATH + '$1"');
-}
-
 function renderTemplate(title, content, menu) {
   let template = fs.readFileSync(TEMPLATE_PATH, 'utf8');
-
-  content = rewritePaths(content);
 
   template = template.replace(/\{\{\{title\}\}\}/g, title);
   template = template.replace(/\{\{\{content\}\}\}/g, content);
   template = template.replace('{{{menu}}}', JSON.stringify(menu));
+  template = template.replace('{{{basePath}}}', BASE_PATH);
 
   return template;
 }
