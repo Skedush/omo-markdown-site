@@ -10,6 +10,7 @@ const SRC_DIR = path.join(ROOT_DIR, 'src');
 const TEMPLATE_PATH = path.join(ROOT_DIR, 'template', 'page.html');
 const OUTPUT_DIR = path.join(ROOT_DIR, 'docs');
 const MENU_PATH = path.join(OUTPUT_DIR, 'menu.json');
+const BASE_PATH = '/omo-markdown-site';
 
 const watchMode = process.argv.includes('--watch');
 
@@ -57,12 +58,12 @@ function generateMenu(files) {
     }
 
     const dir = parts[0];
-    const htmlPath = '/' + relativePath.replace(/\.md$/, '.html');
+    const htmlPath = BASE_PATH + '/' + relativePath.replace(/\.md$/, '.html');
 
     if (!sections[dir]) {
       sections[dir] = {
         title: dir.charAt(0).toUpperCase() + dir.slice(1),
-        path: '/' + dir + '/',
+        path: BASE_PATH + '/' + dir + '/',
         children: []
       };
     }
@@ -89,8 +90,16 @@ function generateMenu(files) {
   return { items };
 }
 
+function rewritePaths(html) {
+  return html
+    .replace(/href="(\/[^"]+)"/g, 'href="' + BASE_PATH + '$1"')
+    .replace(/src="(\/[^"]+)"/g, 'src="' + BASE_PATH + '$1"');
+}
+
 function renderTemplate(title, content, menu) {
   let template = fs.readFileSync(TEMPLATE_PATH, 'utf8');
+
+  content = rewritePaths(content);
 
   template = template.replace(/\{\{\{title\}\}\}/g, title);
   template = template.replace(/\{\{\{content\}\}\}/g, content);
