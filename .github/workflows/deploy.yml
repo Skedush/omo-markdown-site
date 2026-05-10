@@ -34,7 +34,7 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           rm -rf /tmp/gh-pages-deploy
-          git clone --branch gh-pages --depth 1 https://github.com/${{ github.repository }}.git /tmp/gh-pages-deploy 2>/dev/null || git clone --depth 1 https://github.com/${{ github.repository }}.git /tmp/gh-pages-deploy
+          git clone --branch gh-pages --depth 1 https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git /tmp/gh-pages-deploy 2>/dev/null || git clone --depth 1 https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git /tmp/gh-pages-deploy
           cd /tmp/gh-pages-deploy
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
