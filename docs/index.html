@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>欢迎使用</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  <style>
+    :root {
+      --bg-primary: #0f0f0f;
+      --text-primary: #e0e0e0;
+      --accent-green: #22c55e;
+      --accent-blue: #3b82f6;
+      --sidebar-bg: #1a1a1a;
+      --code-bg: #2d2d2d;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    a {
+      color: var(--accent-green);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    a:hover {
+      color: var(--accent-blue);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 280px;
+      height: 100vh;
+      background-color: var(--sidebar-bg);
+      overflow-y: auto;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid #333;
+    }
+
+    .sidebar-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .sidebar-menu {
+      padding: 1rem 0;
+    }
+
+    .menu-section {
+      margin-bottom: 0.5rem;
+    }
+
+    .menu-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: background-color 0.2s ease;
+    }
+
+    .menu-section-header:hover {
+      background-color: #252525;
+    }
+
+    .menu-section-header svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.2s ease;
+    }
+
+    .menu-section.collapsed .menu-section-header svg {
+      transform: rotate(-90deg);
+    }
+
+    .menu-section-items {
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .menu-section.collapsed .menu-section-items {
+      max-height: 0;
+    }
+
+    .menu-item {
+      display: block;
+      padding: 0.5rem 1.5rem 0.5rem 2rem;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .menu-item:hover {
+      background-color: #252525;
+      color: var(--accent-blue);
+    }
+
+    .menu-item.active {
+      color: var(--accent-green);
+      border-left: 3px solid var(--accent-green);
+      padding-left: calc(2rem - 3px);
+    }
+
+    /* Main content */
+    .main-content {
+      margin-left: 280px;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    .content-wrapper {
+      max-width: 800px;
+    }
+
+    /* Mobile hamburger */
+    .hamburger {
+      display: none;
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 200;
+      background-color: var(--sidebar-bg);
+      border: none;
+      padding: 0.5rem;
+      cursor: pointer;
+      border-radius: 0.25rem;
+    }
+
+    .hamburger svg {
+      width: 24px;
+      height: 24px;
+      color: var(--text-primary);
+    }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 50;
+    }
+
+    /* Code blocks */
+    pre {
+      background-color: var(--code-bg) !important;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+
+    code {
+      font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+      font-size: 0.875rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .sidebar-overlay.open {
+        display: block;
+      }
+
+      .main-content {
+        margin-left: 0;
+        padding-top: 4rem;
+      }
+    }
+
+    /* Markdown content styles */
+    .content-wrapper h1 { font-size: 2rem; font-weight: 700; margin: 1.5rem 0 1rem; color: var(--text-primary); }
+    .content-wrapper h2 { font-size: 1.5rem; font-weight: 600; margin: 1.25rem 0 0.75rem; color: var(--text-primary); }
+    .content-wrapper h3 { font-size: 1.25rem; font-weight: 600; margin: 1rem 0 0.5rem; color: var(--text-primary); }
+    .content-wrapper p { margin: 1rem 0; }
+    .content-wrapper ul, .content-wrapper ol { margin: 1rem 0; padding-left: 1.5rem; }
+    .content-wrapper li { margin: 0.5rem 0; }
+    .content-wrapper blockquote { border-left: 4px solid var(--accent-green); padding-left: 1rem; margin: 1rem 0; color: #aaa; }
+    .content-wrapper hr { border: none; border-top: 1px solid #333; margin: 2rem 0; }
+    .content-wrapper img { max-width: 100%; height: auto; border-radius: 0.5rem; margin: 1rem 0; }
+    .content-wrapper table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+    .content-wrapper th, .content-wrapper td { border: 1px solid #333; padding: 0.75rem; text-align: left; }
+    .content-wrapper th { background-color: var(--sidebar-bg); }
+  </style>
+</head>
+<body>
+  <!-- Hamburger button for mobile -->
+  <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+    </svg>
+  </button>
+
+  <!-- Sidebar overlay for mobile -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h1 class="sidebar-title">Docs</h1>
+    </div>
+    <nav class="sidebar-menu" id="sidebarMenu">
+      <script>
+        (function() {
+          var menuContainer = document.getElementById('sidebarMenu');
+          var menuData = window.MENU_DATA || [];
+
+          function renderMenu(items, container) {
+            items.forEach(function(item) {
+              if (item.items && item.items.length > 0) {
+                var section = document.createElement('div');
+                section.className = 'menu-section';
+
+                var header = document.createElement('div');
+                header.className = 'menu-section-header';
+                header.innerHTML = '<span>' + item.title + '</span>';
+                header.innerHTML += '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>';
+
+                var sectionItems = document.createElement('div');
+                sectionItems.className = 'menu-section-items';
+
+                header.addEventListener('click', function() {
+                  section.classList.toggle('collapsed');
+                });
+
+                renderMenu(item.items, sectionItems);
+                section.appendChild(header);
+                section.appendChild(sectionItems);
+                container.appendChild(section);
+              } else {
+                var link = document.createElement('a');
+                link.href = item.url || '#';
+                link.className = 'menu-item' + (item.active ? ' active' : '');
+                link.textContent = item.title;
+                if (item.target) link.target = item.target;
+                container.appendChild(link);
+              }
+            });
+          }
+
+          // Clear existing content except script
+          var script = menuContainer.querySelector('script');
+          menuContainer.innerHTML = '';
+          if (script) {
+            menuContainer.appendChild(script);
+            // Re-append script to execute it
+            var newScript = document.createElement('script');
+            newScript.textContent = script.textContent;
+            menuContainer.appendChild(newScript);
+          }
+
+          renderMenu(menuData, menuContainer);
+        })();
+      </script>
+    </nav>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main-content">
+    <div class="content-wrapper">
+      <h1 id="-" tabindex="-1"><a class="header-anchor" href="#-">欢迎使用</a></h1>
+<p>这是一个使用 Markdown 构建的静态文档站点。</p>
+<h2 id="--1" tabindex="-1"><a class="header-anchor" href="#--1">功能特性</a></h2>
+<ul>
+<li>📝 Markdown 转 HTML 自动编译</li>
+<li>🌙 深色极客风格主题</li>
+<li>📁 目录结构自动生成菜单</li>
+<li>⚡ GitHub Actions 自动部署</li>
+</ul>
+<h2 id="--2" tabindex="-1"><a class="header-anchor" href="#--2">快速开始</a></h2>
+<p>查看 <a href="/guide/getting-started.html">快速开始指南</a> 开始使用。</p>
+
+    </div>
+  </main>
+
+  <script>
+    // Mobile menu toggle
+    (function() {
+      var hamburger = document.getElementById('hamburgerBtn');
+      var sidebar = document.getElementById('sidebar');
+      var overlay = document.getElementById('sidebarOverlay');
+
+      function toggleMenu() {
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('open');
+      }
+
+      hamburger.addEventListener('click', toggleMenu);
+      overlay.addEventListener('click', toggleMenu);
+
+      // Close menu on link click (mobile)
+      sidebar.querySelectorAll('a.menu-item').forEach(function(link) {
+        link.addEventListener('click', function() {
+          if (window.innerWidth <= 768) {
+            toggleMenu();
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
