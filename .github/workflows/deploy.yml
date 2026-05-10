@@ -34,11 +34,11 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-          WORKSPACE="${{ github.workspace }}"
-          git checkout --orphan gh-pages
-          git rm -rf . --quiet
-          cp -r "$WORKSPACE/docs" .
-          rm -rf node_modules
+          cd /tmp
+          git clone --branch gh-pages --depth 1 https://github.com/${{ github.repository }}.git gh-pages-deploy 2>/dev/null || git clone --depth 1 https://github.com/${{ github.repository }}.git gh-pages-deploy
+          cd gh-pages-deploy
+          rm -rf .
+          cp -r "${{ github.workspace }}/docs"/* .
           git add -A
           git commit -m "docs: auto-build from ${{ github.sha }}"
           git push -f origin gh-pages
