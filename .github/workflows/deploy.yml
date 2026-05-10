@@ -36,6 +36,8 @@ jobs:
           rm -rf /tmp/gh-pages-deploy
           git clone --branch gh-pages --depth 1 https://github.com/${{ github.repository }}.git /tmp/gh-pages-deploy 2>/dev/null || git clone --depth 1 https://github.com/${{ github.repository }}.git /tmp/gh-pages-deploy
           cd /tmp/gh-pages-deploy
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
           git rm -rf . --quiet 2>/dev/null || true
           cp -r "${{ github.workspace }}/public/"* .
           git add -A
