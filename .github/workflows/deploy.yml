@@ -33,6 +33,7 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+          git pull --rebase
           git add -A
           git diff --staged --quiet || git commit -m "docs: auto-build from commit ${{ github.sha }}"
           git push
