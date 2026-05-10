@@ -89,11 +89,12 @@ function generateMenu(files) {
   return { items };
 }
 
-function renderTemplate(title, content) {
+function renderTemplate(title, content, menu) {
   let template = fs.readFileSync(TEMPLATE_PATH, 'utf8');
 
   template = template.replace(/\{\{\{title\}\}\}/g, title);
   template = template.replace(/\{\{\{content\}\}\}/g, content);
+  template = template.replace('{{{menu}}}', JSON.stringify(menu));
 
   return template;
 }
@@ -142,6 +143,7 @@ function build() {
 
   const md = createMarkdownIt();
   const files = [];
+  const fileContents = [];
 
   for (const filepath of mdFiles) {
     const relativePath = path.relative(SRC_DIR, filepath);
@@ -157,15 +159,13 @@ function build() {
 
     let title = data.title || extractTitle(body) || path.basename(filepath, '.md');
     const htmlContent = md.render(body);
-    const outputHtml = renderTemplate(title, htmlContent);
 
-    const outputDir = path.dirname(outputPath);
-    if (!fs.existsSync(outputDir)) {
-      fs.mkdirSync(outputDir, { recursive: true });
-    }
-
-    fs.writeFileSync(outputPath, outputHtml);
-    console.log(`Built: ${relativePath} -> ${path.relative(OUTPUT_DIR, outputPath)}`);
+    fileContents.push({
+      outputPath,
+      title,
+      htmlContent,
+      relativePath
+    });
 
     files.push({
       filepath: filepath,
@@ -177,6 +177,16 @@ function build() {
   const menu = generateMenu(files);
   fs.writeFileSync(MENU_PATH, JSON.stringify(menu, null, 2));
   console.log(`Menu written to: ${MENU_PATH}`);
+
+  for (const file of fileContents) {
+    const outputDir = path.dirname(file.outputPath);
+    if (!fs.existsSync(outputDir)) {
+      fs.mkdirSync(outputDir, { recursive: true });
+    }
+    const outputHtml = renderTemplate(file.title, file.htmlContent, menu);
+    fs.writeFileSync(file.outputPath, outputHtml);
+    console.log(`Built: ${file.relativePath} -> ${path.relative(OUTPUT_DIR, file.outputPath)}`);
+  }
 
   console.log('Build complete!');
 }
