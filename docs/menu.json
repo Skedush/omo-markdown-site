@@ -2,27 +2,27 @@
   "items": [
     {
       "title": "Api",
-      "path": "/omo-markdown-site/api/",
+      "path": "/api/",
       "children": [
         {
           "title": "API 参考",
-          "path": "/omo-markdown-site/api/reference.html",
+          "path": "/api/reference.html",
           "order": 1
         }
       ]
     },
     {
       "title": "Guide",
-      "path": "/omo-markdown-site/guide/",
+      "path": "/guide/",
       "children": [
         {
           "title": "快速开始",
-          "path": "/omo-markdown-site/guide/getting-started.html",
+          "path": "/guide/getting-started.html",
           "order": 1
         },
         {
           "title": "配置",
-          "path": "/omo-markdown-site/guide/configuration.html",
+          "path": "/guide/configuration.html",
           "order": 2
         }
       ]

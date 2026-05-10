@@ -12,7 +12,7 @@ const OUTPUT_DIR = path.join(ROOT_DIR, 'docs');
 const MENU_PATH = path.join(OUTPUT_DIR, 'menu.json');
 
 const pkg = JSON.parse(fs.readFileSync(path.join(ROOT_DIR, 'package.json'), 'utf8'));
-const BASE_PATH = pkg.basePath || '';
+const BASE_PATH = process.env.BASE_PATH || pkg.basePath || '';
 
 const watchMode = process.argv.includes('--watch');
 
