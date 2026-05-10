@@ -5,10 +5,11 @@ const matter = require('gray-matter');
 const markdownIt = require('markdown-it');
 const markdownItAnchor = require('markdown-it-anchor');
 
-const SRC_DIR = '/Users/lii/Desktop/OMO/src';
-const TEMPLATE_PATH = '/Users/lii/Desktop/OMO/template/page.html';
-const OUTPUT_DIR = '/Users/lii/Desktop/OMO/docs';
-const MENU_PATH = '/Users/lii/Desktop/OMO/docs/menu.json';
+const ROOT_DIR = path.resolve(__dirname, '..');
+const SRC_DIR = path.join(ROOT_DIR, 'src');
+const TEMPLATE_PATH = path.join(ROOT_DIR, 'template', 'page.html');
+const OUTPUT_DIR = path.join(ROOT_DIR, 'docs');
+const MENU_PATH = path.join(OUTPUT_DIR, 'menu.json');
 
 const watchMode = process.argv.includes('--watch');
 
