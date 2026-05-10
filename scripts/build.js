@@ -10,7 +10,9 @@ const SRC_DIR = path.join(ROOT_DIR, 'src');
 const TEMPLATE_PATH = path.join(ROOT_DIR, 'template', 'page.html');
 const OUTPUT_DIR = path.join(ROOT_DIR, 'docs');
 const MENU_PATH = path.join(OUTPUT_DIR, 'menu.json');
-const BASE_PATH = '/omo-markdown-site';
+
+const pkg = JSON.parse(fs.readFileSync(path.join(ROOT_DIR, 'package.json'), 'utf8'));
+const BASE_PATH = pkg.basePath || '';
 
 const watchMode = process.argv.includes('--watch');
 
