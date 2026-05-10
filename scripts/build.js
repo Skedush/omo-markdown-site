@@ -57,12 +57,12 @@ function generateMenu(files) {
     }
 
     const dir = parts[0];
-    const htmlPath = relativePath.replace(/\.md$/, '.html');
+    const htmlPath = '/' + relativePath.replace(/\.md$/, '.html');
 
     if (!sections[dir]) {
       sections[dir] = {
         title: dir.charAt(0).toUpperCase() + dir.slice(1),
-        path: dir + '/',
+        path: '/' + dir + '/',
         children: []
       };
     }
