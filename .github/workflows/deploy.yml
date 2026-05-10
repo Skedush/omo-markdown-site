@@ -34,9 +34,10 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
+          WORKSPACE="${{ github.workspace }}"
           git checkout --orphan gh-pages
           git rm -rf . --quiet
-          cp -r "${{ github.workspace }}/docs/"* .
+          cp -r "$WORKSPACE/docs" .
           git add -A
           git commit -m "docs: auto-build from ${{ github.sha }}"
           git push -f origin gh-pages
