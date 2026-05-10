@@ -33,13 +33,4 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-
-          cd /tmp
-          rm -rf gh-pages-deploy
-          git clone --branch gh-pages --depth 1 https://github.com/${{ github.repository }}.git gh-pages-deploy 2>/dev/null || git clone --depth 1 https://github.com/${{ github.repository }}.git gh-pages-deploy
-          cd gh-pages-deploy
-          git rm -rf . --quiet 2>/dev/null || true
-          cp -r "${{ github.workspace }}/docs" .
-          git add -A
-          git commit -m "docs: auto-build from ${{ github.sha }}"
-          git push -f origin gh-pages
+          git subtree push --prefix=docs origin gh-pages
