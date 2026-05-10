@@ -29,6 +29,11 @@
           "title": "AI 革命与开发者未来",
           "path": "/omo-markdown-site/guide/ai-revolution.html",
           "order": 10
+        },
+        {
+          "title": "测试页面",
+          "path": "/omo-markdown-site/guide/test.html",
+          "order": 100
         }
       ]
     }
