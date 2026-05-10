@@ -8,7 +8,7 @@ const markdownItAnchor = require('markdown-it-anchor');
 const ROOT_DIR = path.resolve(__dirname, '..');
 const SRC_DIR = path.join(ROOT_DIR, 'src');
 const TEMPLATE_PATH = path.join(ROOT_DIR, 'template', 'page.html');
-const OUTPUT_DIR = path.join(ROOT_DIR, 'docs');
+const OUTPUT_DIR = path.join(ROOT_DIR, 'public');
 const MENU_PATH = path.join(OUTPUT_DIR, 'menu.json');
 
 const pkg = JSON.parse(fs.readFileSync(path.join(ROOT_DIR, 'package.json'), 'utf8'));
