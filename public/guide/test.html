@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <base href="{{{basePath}}}/">
-  <title>{{{title}}}</title>
+  <base href="/">
+  <title>测试页面</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -393,7 +393,19 @@
 
   <main class="main-content">
     <div class="content-wrapper">
-      {{{content}}}
+      <h1 id="-" tabindex="-1"><a class="header-anchor" href="#-">测试页面</a></h1>
+<p>这是一个测试页面，用来验证 workflow 自动部署是否正常工作。</p>
+<h2 id="--1" tabindex="-1"><a class="header-anchor" href="#--1">功能测试</a></h2>
+<ul>
+<li>[ ] 菜单显示正常</li>
+<li>[ ] 链接跳转正确</li>
+<li>[ ] 样式加载完整</li>
+</ul>
+<h2 id="--2" tabindex="-1"><a class="header-anchor" href="#--2">代码示例</a></h2>
+<pre class="language-javascript"><code class="language-javascript">console.log('Hello, World!');
+</code></pre>
+<p>如果能看到这个页面，说明自动部署成功了！</p>
+
     </div>
   </main>
 
